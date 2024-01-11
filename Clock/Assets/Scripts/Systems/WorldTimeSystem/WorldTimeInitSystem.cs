@@ -9,21 +9,24 @@ namespace MSuhinin.Clock
         private EcsFilter _filter;
         private EcsWorld _world;
         private IWorldTimeService wts;
+        private EcsPool<WorldTimeComponent> _worldTimeComponentPool;
 
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
-            _filter = _world.Filter<IsCameraComponent>().End();
+            _filter = _world.Filter<WorldTimeComponent>().End();
             wts = Service<IWorldTimeService>.Get();
-
+            _worldTimeComponentPool = _world.GetPool<WorldTimeComponent>();
         }
 
         public void Run(IEcsSystems systems)
         {
             foreach (int entity in _filter)
             {
-              Debug.Log(wts.GetCurrentDateTime().ToString());
-              
+                ref var worldTimeComponentPool = ref _worldTimeComponentPool.Get(entity);
+                worldTimeComponentPool.DateTime = wts.GetCurrentDateTime();
+                Debug.Log(worldTimeComponentPool.DateTime.ToString());
+                _worldTimeComponentPool.Del(entity);
             }
         }
     }
