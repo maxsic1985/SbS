@@ -1,3 +1,4 @@
+using System;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using UnityEngine;
@@ -11,13 +12,13 @@ namespace MSuhinin.Clock
     {
         public EcsSystems Systems { get; private set; }
         private bool _hasInitCompleted;
-        
+
         const string API_URL = "http://worldtimeapi.org/api/ip";
         const string NTP_URL = "ntp.ix.ru";
-        
-        [SerializeField] EcsUguiEmitter uguiEmitter;
 
-        
+        [SerializeField] EcsUguiEmitter uguiEmitter;
+        [SerializeField] bool NTP;
+
         private async void Start()
         {
             Application.targetFrameRate = 60;
@@ -25,24 +26,27 @@ namespace MSuhinin.Clock
             var world = new EcsWorld();
             Systems = new EcsSystems(world);
             
-            // IWorldTimeService worldTime = new WorldTimeServiceFromApi();
-            // worldTime.Initialize(API_URL);
-            
-            IWorldTimeService ntpTime = new NtpTimeService();
-            ntpTime.Initialize(NTP_URL);
-          
+            (IWorldTimeService,String) GetTimeService(bool timeService) => timeService switch
+            {
+                true => (new WorldTimeServiceFromApi(),API_URL),
+                false => (new NtpTimeService(),NTP_URL),
+            };
+
+
+            var ts = GetTimeService(NTP);
+            ts.Item1.Initialize(ts.Item2);
+
             new InitializeAllSystem(Systems);
-            
-            
+
+
             Systems
-                .AddWorld (new EcsWorld (), WorldsNamesConstants.EVENTS)
+                .AddWorld(new EcsWorld(), WorldsNamesConstants.EVENTS)
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem(WorldsNamesConstants.EVENTS))
-
 #endif
-               
-                .InjectUgui (uguiEmitter, WorldsNamesConstants.EVENTS)
+
+                .InjectUgui(uguiEmitter, WorldsNamesConstants.EVENTS)
                 .Init();
             _hasInitCompleted = true;
         }
@@ -57,10 +61,11 @@ namespace MSuhinin.Clock
         {
             if (Systems != null)
             {
-                foreach (var worlds in  Systems.GetAllNamedWorlds())
+                foreach (var worlds in Systems.GetAllNamedWorlds())
                 {
                     worlds.Value.Destroy();
                 }
+
                 Systems.GetWorld().Destroy();
                 Systems = null;
             }
