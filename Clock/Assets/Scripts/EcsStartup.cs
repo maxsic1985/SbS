@@ -28,8 +28,8 @@ namespace MSuhinin.Clock
             
             (IWorldTimeService,String) GetTimeService(bool timeService) => timeService switch
             {
-                true => (new WorldTimeServiceFromApi(),API_URL),
-                false => (new NtpTimeService(),NTP_URL),
+                false => (new WorldTimeServiceFromApi(),API_URL),
+                true => (new NtpTimeService(),NTP_URL),
             };
 
 
