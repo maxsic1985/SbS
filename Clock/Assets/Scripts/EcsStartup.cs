@@ -11,6 +11,10 @@ namespace MSuhinin.Clock
     {
         public EcsSystems Systems { get; private set; }
         private bool _hasInitCompleted;
+        
+        const string API_URL = "http://worldtimeapi.org/api/ip";
+        const string NTP_URL = "ntp.ix.ru";
+        
         [SerializeField] EcsUguiEmitter uguiEmitter;
 
         
@@ -20,9 +24,16 @@ namespace MSuhinin.Clock
 
             var world = new EcsWorld();
             Systems = new EcsSystems(world);
-
+            
+            // IWorldTimeService worldTime = new WorldTimeServiceFromApi();
+            // worldTime.Initialize(API_URL);
+            
+            IWorldTimeService ntpTime = new NtpTimeService();
+            ntpTime.Initialize(NTP_URL);
+          
             new InitializeAllSystem(Systems);
-
+            
+            
             Systems
                 .AddWorld (new EcsWorld (), WorldsNamesConstants.EVENTS)
 #if UNITY_EDITOR

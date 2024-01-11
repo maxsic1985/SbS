@@ -2,7 +2,7 @@ using Leopotam.EcsLite;
 
 namespace MSuhinin.Clock
 {
-    internal class InitializeAllSystem
+    public class InitializeAllSystem
     {
         public InitializeAllSystem(EcsSystems systems)
         {
@@ -10,15 +10,6 @@ namespace MSuhinin.Clock
             new LoadResoursesSystems(systems);
             new CommonSystems(systems);
             new GameRuntimeSystems(systems);
-        }
-    }
-
-
-    public class GameRuntimeSystems
-    {
-        public GameRuntimeSystems(EcsSystems systems)
-        {
-           // new CameraSystems(systems);
         }
     }
 }

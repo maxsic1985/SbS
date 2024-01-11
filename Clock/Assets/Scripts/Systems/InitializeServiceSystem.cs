@@ -15,13 +15,15 @@ namespace MSuhinin.Clock
         public void Init(IEcsSystems systems)
         {
             Service<ITimeService>.Set(new UnityTimeService());
+          //  Service<IWorldTimeService>.Set(new WorldTimeServiceFromApi());
+            Service<IWorldTimeService>.Set(new NtpTimeService());
             Service<GameObjectAssetLoader>.Set(new GameObjectAssetLoader());
             Service<ScriptableObjectAssetLoader>.Set(new ScriptableObjectAssetLoader());
 
-            if (Application.isEditor)
-                Service<IInputService>.Set(new KeyboardInputService());
-            else
-                Service<IInputService>.Set(new SwipeService());
+            // if (Application.isEditor)
+            //     Service<IInputService>.Set(new KeyboardInputService());
+            // else
+            //     Service<IInputService>.Set(new SwipeService());
         }
     }
 }
