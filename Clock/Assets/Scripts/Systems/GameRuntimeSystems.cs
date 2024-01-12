@@ -6,7 +6,7 @@ namespace MSuhinin.Clock
     {
         public GameRuntimeSystems(EcsSystems systems)
         {
-            new WorldTimeSystems(systems);
+            new ClockSystems(systems);
         }
     }
 }
