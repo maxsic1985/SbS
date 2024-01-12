@@ -7,9 +7,9 @@ namespace MSuhinin.Clock
         public WorldTimeSystems(EcsSystems systems)
         {
             systems
-                .Add(new TestS())
+                .Add(new ClockLagSystem())
                 .Add(new WorldTimeInitSystem())
-                .Add(new WorldTimeLoadSystem())
+                .Add(new WorldTimeUpLoadWEBSystem())
                 .Add(new LocalTimeSystemUpdate());
         }
     }
