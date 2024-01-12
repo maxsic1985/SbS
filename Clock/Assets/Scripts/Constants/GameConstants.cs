@@ -7,6 +7,7 @@ namespace MSuhinin.Clock
         public const int HOUR_DURATIO = 23;
         public const float HOURS_TO_DEGREES = 360 / 12;
         public const float MINUTES_TO_DEGREES = 360 / 60;
+        public const float TIME_LAG = 5;
 
 
         public const float STOP_THRESHOLD = 0.5f;
