@@ -4,27 +4,25 @@ using DG.Tweening;
 
 namespace MSuhinin.Clock
 {
-    public sealed class ClockUploadTimeSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class ClockAnimationTimeSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filterClock;
         private EcsFilter _filterWorldTime;
         private EcsPool<TimeComponent> _worldTimeComponentPool;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
-      
 
 
         public void Init(IEcsSystems systems)
         {
             var world = systems.GetWorld();
-            
+
             _filterClock = world.Filter<IsClockComponent>()
                 .Inc<ClockViewComponent>()
                 .End();
             _filterWorldTime = world.Filter<TimeComponent>().End();
-            
+
             _worldTimeComponentPool = world.GetPool<TimeComponent>();
             _clockViewComponentPool = world.GetPool<ClockViewComponent>();
-      
         }
 
         public void Run(IEcsSystems systems)
@@ -38,10 +36,14 @@ namespace MSuhinin.Clock
                     var hour = Mathf.Floor(timeComponentPool.HOUR * GameConstants.HOURS_TO_DEGREES);
                     var min = Mathf.Floor(timeComponentPool.MIN * GameConstants.MINUTES_TO_DEGREES);
                     var sec = Mathf.Floor(timeComponentPool.SEC * GameConstants.MINUTES_TO_DEGREES);
+
+                    clockView.HoursEuler.DORotateQuaternion(Quaternion.Euler(0, 0, -hour), GameConstants.TIC_DURATION);
+                    clockView.MinutesEuler.DORotateQuaternion(Quaternion.Euler(0, 0, -min), 1);
+                    clockView.SecondsEuler.DORotateQuaternion(Quaternion.Euler(0, 0, -sec), 1);
+                    clockView.TextTime.text = (timeComponentPool.HOUR+
+                                               ":" + timeComponentPool.MIN.ToString("00")+
+                                               ":"+timeComponentPool.SEC.ToString("00"));
                     
-                    clockView.HoursEuler.DORotateQuaternion(Quaternion.Euler(0,0, -hour),GameConstants.TIC_DURATION);
-                    clockView.MinutesEuler.DORotateQuaternion( Quaternion.Euler(0,0, -min),1);
-                    clockView.SecondsEuler.DORotateQuaternion( Quaternion.Euler(0,0, -sec),1);
                 }
             }
         }

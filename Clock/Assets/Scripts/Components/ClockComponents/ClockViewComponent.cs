@@ -1,5 +1,7 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MSuhinin.Clock
 {
@@ -8,5 +10,6 @@ namespace MSuhinin.Clock
         public Transform HoursEuler;
         public Transform MinutesEuler;
         public Transform SecondsEuler;
+        public Text TextTime;
     }
 }

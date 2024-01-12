@@ -39,6 +39,7 @@ namespace MSuhinin.Clock
                 clockViewComponentPool.HoursEuler = view.HoursTransform.transform;
                 clockViewComponentPool.MinutesEuler = view.MinutesTransform.transform;
                 clockViewComponentPool.SecondsEuler = view.SecondsTransform.transform;
+                clockViewComponentPool.TextTime = view.TextTime;
                 
                 _prefabPool.Del(entity);
             }
