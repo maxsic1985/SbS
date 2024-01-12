@@ -10,7 +10,7 @@ namespace MSuhinin.Clock
                 .Add(new ClockInitSystem())
                 .Add(new ClockLoadSystem())
                 .Add(new ClockBuildSystem())
-                .Add(new ClockUpdateTimeFromNetSystem());
+                .Add(new ClockUploadTimeSystem());
         }
     }
 }

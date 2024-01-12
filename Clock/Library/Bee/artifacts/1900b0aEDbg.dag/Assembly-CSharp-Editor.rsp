@@ -353,6 +353,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Leopotam.EcsLite.UnityEditor.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Leopotam.Globals.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/PsdPlugin.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/UniRx.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.2D.Animation.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.2D.Animation.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.2D.Aseprite.Common.ref.dll"
