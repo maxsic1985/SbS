@@ -481,6 +481,7 @@
 "Assets/Scripts/Systems/LoadAssetSystem/LoadPrefabSystem.cs"
 "Assets/Scripts/Systems/LoadAssetSystem/LoadResoursesSystems.cs"
 "Assets/Scripts/Systems/TimeSystem/LocalTimeSystemUpdate.cs"
+"Assets/Scripts/Systems/TimeSystem/TestS.cs"
 "Assets/Scripts/Systems/TimeSystem/WorldTimeInitSystem.cs"
 "Assets/Scripts/Systems/TimeSystem/WorldTimeLoadSystem.cs"
 "Assets/Scripts/Systems/TimeSystem/WorldTimeSystems.cs"

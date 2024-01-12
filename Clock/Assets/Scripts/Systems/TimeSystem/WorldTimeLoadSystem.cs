@@ -39,14 +39,14 @@ namespace MSuhinin.Clock
                 ref var worldTimeComponentPool = ref _worldTimeComponentPool.Get(entity);
                 worldTimeComponentPool.DateTime = _worldTimeService.GetCurrentDateTime();
                 
-                ref var tc = ref _timeComponentPool.Add(entity);
+                ref var tc = ref _timeComponentPool.Get(entity);
                 tc.HOUR = worldTimeComponentPool.DateTime.Hour;
                 tc.MIN = worldTimeComponentPool.DateTime.Minute;
                 tc.SEC = worldTimeComponentPool.DateTime.Second;
                 
                 Debug.Log(worldTimeComponentPool.DateTime.ToString());
                 
-               _isGetWorldTimeComponent.Del(entity);
+               //_isGetWorldTimeComponent.Del(entity);
                _isNessesaryUpdateTimeFromNetComponentPool.Del(entity);
             }
         }
