@@ -460,7 +460,6 @@
 "Assets/Scripts/Systems/ClockSystem/ClockBuildSystem.cs"
 "Assets/Scripts/Systems/ClockSystem/ClockInitSystem.cs"
 "Assets/Scripts/Systems/ClockSystem/ClockLoadSystem.cs"
-"Assets/Scripts/Systems/ClockSystem/ClockSyncWEBTimeSystem.cs"
 "Assets/Scripts/Systems/ClockSystem/ClockSystems.cs"
 "Assets/Scripts/Systems/ClockSystem/ClockUploadTimeSystem.cs"
 "Assets/Scripts/Systems/Common/CommonSystems.cs"

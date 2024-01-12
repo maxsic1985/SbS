@@ -1,6 +1,6 @@
 ﻿using Leopotam.EcsLite;
 using UnityEngine;
-
+using DG.Tweening;
 
 namespace MSuhinin.Clock
 {
@@ -34,12 +34,14 @@ namespace MSuhinin.Clock
                 ref var clockView = ref _clockViewComponentPool.Get(entity1);
                 foreach (var entity2 in _filterWorldTime)
                 {
-                    ref var worldTimeComponentPool = ref _worldTimeComponentPool.Get(entity2);
-                    var hour = Mathf.Floor(worldTimeComponentPool.HOUR * GameConstants.HOURS_TO_DEGREES);
-                    var min = Mathf.Floor(worldTimeComponentPool.MIN * GameConstants.MINUTES_TO_DEGREES);
-                    clockView.HoursEuler.rotation=Quaternion.Euler(0,0, -hour);
-                    clockView.MinutesEuler.rotation=Quaternion.Euler(0,0, -min);
-                   
+                    ref var timeComponentPool = ref _worldTimeComponentPool.Get(entity2);
+                    var hour = Mathf.Floor(timeComponentPool.HOUR * GameConstants.HOURS_TO_DEGREES);
+                    var min = Mathf.Floor(timeComponentPool.MIN * GameConstants.MINUTES_TO_DEGREES);
+                    var sec = Mathf.Floor(timeComponentPool.SEC * GameConstants.MINUTES_TO_DEGREES);
+                    
+                    clockView.HoursEuler.DORotateQuaternion(Quaternion.Euler(0,0, -hour),GameConstants.TIC_DURATION);
+                    clockView.MinutesEuler.DORotateQuaternion( Quaternion.Euler(0,0, -min),1);
+                    clockView.SecondsEuler.DORotateQuaternion( Quaternion.Euler(0,0, -sec),1);
                 }
             }
         }

@@ -7,5 +7,6 @@ namespace MSuhinin.Clock
     {
         public Transform HoursEuler;
         public Transform MinutesEuler;
+        public Transform SecondsEuler;
     }
 }
