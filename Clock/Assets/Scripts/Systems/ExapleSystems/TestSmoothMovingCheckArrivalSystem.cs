@@ -30,7 +30,7 @@ namespace MSuhinin.Clock
                 ref var position = ref _positionPool.Get(entity);
                 ref var destination = ref _destinationPool.Get(entity);
                 var heading = destination.Value - position.Value;
-                if (heading.sqrMagnitude < LimitsConstants.STOP_THRESHOLD * LimitsConstants.STOP_THRESHOLD)
+                if (heading.sqrMagnitude < GameConstants.STOP_THRESHOLD * GameConstants.STOP_THRESHOLD)
                 {
                     _destinationPool.Del(entity);
                 }

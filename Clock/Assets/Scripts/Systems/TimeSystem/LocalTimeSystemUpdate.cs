@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MSuhinin.Clock
 {
-    public sealed class LocalTimeSystemUpdate : IEcsInitSystem
+    public sealed class LocalTimeSystemUpdate : IEcsInitSystem,IEcsDestroySystem
     {
         private EcsFilter _filter;
         private EcsPool<TimeComponent> _timeComponentPool;
@@ -22,36 +22,42 @@ namespace MSuhinin.Clock
             _filter = world
                 .Filter<TimeComponent>().End();
             _timeComponentPool = world.GetPool<TimeComponent>();
-  
-            Observable.Interval(TimeSpan.FromMilliseconds(1000))
-                .Where(_ => true).Subscribe(x =>
-                {
-                    UpdateTime();
-                })
+
+            Observable.Interval(TimeSpan.FromMilliseconds(GameConstants.ONE_SECOND_IN_MS))
+                .Where(_ => true).Subscribe(x => { UpdateTime(); })
                 .AddTo(_disposables);
-            
         }
 
         private void UpdateTime()
         {
             foreach (var entity in _filter)
             {
-                ref var tc = ref _timeComponentPool.Get(entity);
-                tc.SEC++;
-                if (tc.SEC>=59 && tc.MIN<59)
+                ref var time = ref _timeComponentPool.Get(entity);
+                time.SEC++;
+                if (time.SEC >= GameConstants.MIN_SEC_DURATION 
+                    && time.MIN < GameConstants.MIN_SEC_DURATION)
                 {
-                    tc.MIN++;
-                    tc.SEC = 0;
+                    time.MIN++;
+                    time.SEC = 0;
                 }
-                else if (tc.SEC>=59 && tc.MIN==59)
+                else if (time.SEC >= GameConstants.MIN_SEC_DURATION 
+                         && time.MIN == GameConstants.MIN_SEC_DURATION)
                 {
-                    tc.MIN=0;
-                    tc.SEC = 0;
-                    var tcHour = tc.HOUR==23 ? tc.HOUR=0 : tc.HOUR++;
+                    time.MIN = 0;
+                    time.SEC = 0;
+                    var tcHour = time.HOUR == GameConstants.HOUR_DURATIO ? time.HOUR = 0 : time.HOUR++;
                 }
             }
         }
+        
+        public void Destroy(IEcsSystems systems)
+        {
+            Dispose();
+        }
 
-      
+        private void Dispose()
+        {
+            _disposables.Clear();
+        }
     }
 }
