@@ -9,7 +9,8 @@ namespace MSuhinin.Clock
             systems
                 .Add(new ClockInitSystem())
                 .Add(new ClockLoadSystem())
-                .Add(new ClockBuildSystem());
+                .Add(new ClockBuildSystem())
+                .Add(new ClockUpdateTimeFromNetSystem());
         }
     }
 }

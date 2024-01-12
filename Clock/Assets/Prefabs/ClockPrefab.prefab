@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 79720319246479611}
   - component: {fileID: 7707057699959118586}
   - component: {fileID: 3245626306929077340}
-  - component: {fileID: 8233858994485892855}
+  - component: {fileID: 4953614547860766832}
   m_Layer: 5
   m_Name: ClockPrefab
   m_TagString: Untagged
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8233858994485892855
+--- !u!114 &4953614547860766832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,11 +192,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4945205819736564801}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28a8329ce89d00c46bef2eb276bda648, type: 3}
+  m_Script: {fileID: 11500000, guid: a28c98ad7cfa3a9428226b68bc69f977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Min: {fileID: 2846314542133152812}
-  Hour: {fileID: 6186119758889612971}
+  _minutesTransform: {fileID: 2846314542133152812}
+  _hoursTransform: {fileID: 6186119758889612971}
 --- !u!1001 &5237382231062665511
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace MSuhinin.Clock
         private EcsPool<ClockTypeComponent> _clockTypeComponent;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
-        
+        private EcsPool<ClockViewComponent> _clockViewComponentPool;
         public void Init(IEcsSystems systems)
         {
             _world = systems.GetWorld();
@@ -24,6 +24,7 @@ namespace MSuhinin.Clock
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _isClockComponent = _world.GetPool<IsClockComponent>();
             _clockTypeComponent = _world.GetPool<ClockTypeComponent>();
+            _clockViewComponentPool = _world.GetPool<ClockViewComponent>();
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
         }
 
@@ -38,6 +39,8 @@ namespace MSuhinin.Clock
                     
                     ref ClockTypeComponent clockTypeComponent = ref _clockTypeComponent.Add(entity);
                     clockTypeComponent.ClockType = dataInit.ClockType;
+                    
+                   // ref var clockViewComponentPool = ref _clockViewComponentPool.Add(entity);
                 }
                 _scriptableObjectPool.Del(entity);
             }

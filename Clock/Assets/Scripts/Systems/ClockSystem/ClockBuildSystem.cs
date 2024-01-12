@@ -9,6 +9,7 @@ namespace MSuhinin.Clock
         private EcsFilter _filter;
         private EcsPool<PrefabComponent> _prefabPool;
         private EcsPool<TransformComponent> _transformComponentPool;
+        private EcsPool<ClockViewComponent> _clockViewComponentPool;
 
 
         public void Init(IEcsSystems systems)
@@ -19,6 +20,7 @@ namespace MSuhinin.Clock
                 .Inc<PrefabComponent>().End();
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
+            _clockViewComponentPool = world.GetPool<ClockViewComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -29,8 +31,13 @@ namespace MSuhinin.Clock
                 ref var transformComponent = ref _transformComponentPool.Add(entity);
 
                 var gameObject = Object.Instantiate(prefabComponent.Value);
-                transformComponent.Value = gameObject.GetComponent<ClockView>().transform;
+                var view = gameObject.GetComponent<ClockView>();
+                transformComponent.Value = view.transform;
                 gameObject.transform.position = Vector3.zero;
+                
+                ref var clockViewComponentPool = ref _clockViewComponentPool.Add(entity);
+                clockViewComponentPool.HoursEuler = view.HoursTransform.transform;
+                clockViewComponentPool.MinutesEuler = view.MinutesTransform.transform;
                 
                 _prefabPool.Del(entity);
             }
