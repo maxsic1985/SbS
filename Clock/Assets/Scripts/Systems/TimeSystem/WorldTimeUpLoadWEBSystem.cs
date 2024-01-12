@@ -8,9 +8,9 @@ namespace MSuhinin.Clock
 {
     public sealed class WorldTimeUpLoadWEBSystem : IEcsInitSystem, IEcsRunSystem
     {
+        private IWorldTimeService _worldTimeService;
         private EcsFilter _filter;
         private EcsWorld _world;
-        private IWorldTimeService _worldTimeService;
         private EcsPool<WorldTimeComponent> _worldTimeComponentPool;
         private EcsPool<TimeComponent> _timeComponentPool;
         private EcsPool<IsWorldTimeComponent> _isGetWorldTimeComponent;
@@ -40,19 +40,17 @@ namespace MSuhinin.Clock
                 worldTimeComponentPool.DateTime = _worldTimeService.GetCurrentDateTime();
 
 
-                ref var tc = ref _timeComponentPool.Get(entity);
-                if (tc.HOUR != worldTimeComponentPool.DateTime.Hour
-                    || tc.MIN != worldTimeComponentPool.DateTime.Minute
-                    || Math.Abs(tc.SEC - worldTimeComponentPool.DateTime.Second) > GameConstants.TIME_LAG)
+                ref var time = ref _timeComponentPool.Get(entity);
+                
+                if (time.HOUR != worldTimeComponentPool.DateTime.Hour
+                    || time.MIN != worldTimeComponentPool.DateTime.Minute
+                    || Math.Abs(time.SEC - worldTimeComponentPool.DateTime.Second) > GameConstants.TIME_LAG)
                 {
-                    tc.HOUR = worldTimeComponentPool.DateTime.Hour;
-                    tc.MIN = worldTimeComponentPool.DateTime.Minute;
-                    tc.SEC = worldTimeComponentPool.DateTime.Second;
+                    time.HOUR = worldTimeComponentPool.DateTime.Hour;
+                    time.MIN = worldTimeComponentPool.DateTime.Minute;
+                    time.SEC = worldTimeComponentPool.DateTime.Second;
                 }
-
-                Debug.Log(worldTimeComponentPool.DateTime.ToString());
-
-                //_isGetWorldTimeComponent.Del(entity);
+                
                 _isNessesaryUpdateTimeFromNetComponentPool.Del(entity);
             }
         }
