@@ -10,7 +10,7 @@ namespace MSuhinin.Clock
         private EcsFilter _filterWorldTime;
         private EcsPool<TimeComponent> _worldTimeComponentPool;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
-        const float hoursToDegrees = 360 / 12, minutesToDegrees = 360 / 60;
+      
 
 
         public void Init(IEcsSystems systems)
@@ -35,8 +35,8 @@ namespace MSuhinin.Clock
                 foreach (var entity2 in _filterWorldTime)
                 {
                     ref var worldTimeComponentPool = ref _worldTimeComponentPool.Get(entity2);
-                    var hour = Mathf.Floor(worldTimeComponentPool.HOUR * hoursToDegrees);
-                    var min = Mathf.Floor(worldTimeComponentPool.MIN * minutesToDegrees);
+                    var hour = Mathf.Floor(worldTimeComponentPool.HOUR * GameConstants.HOURS_TO_DEGREES);
+                    var min = Mathf.Floor(worldTimeComponentPool.MIN * GameConstants.MINUTES_TO_DEGREES);
                     clockView.HoursEuler.rotation=Quaternion.Euler(0,0, -hour);
                     clockView.MinutesEuler.rotation=Quaternion.Euler(0,0, -min);
                    
