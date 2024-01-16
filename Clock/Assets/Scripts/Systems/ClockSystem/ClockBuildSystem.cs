@@ -10,6 +10,7 @@ namespace MSuhinin.Clock
         private EcsPool<PrefabComponent> _prefabPool;
         private EcsPool<TransformComponent> _transformComponentPool;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
+        private EcsPool<MouseDirectionComponent> _mouseDirection;
 
 
         public void Init(IEcsSystems systems)
@@ -21,6 +22,7 @@ namespace MSuhinin.Clock
             _prefabPool = world.GetPool<PrefabComponent>();
             _transformComponentPool = world.GetPool<TransformComponent>();
             _clockViewComponentPool = world.GetPool<ClockViewComponent>();
+            _mouseDirection = world.GetPool<MouseDirectionComponent>();
         }
 
         public void Run(IEcsSystems systems)
@@ -31,15 +33,24 @@ namespace MSuhinin.Clock
                 ref var transformComponent = ref _transformComponentPool.Add(entity);
 
                 var gameObject = Object.Instantiate(prefabComponent.Value);
-                var view = gameObject.GetComponent<ClockView>();
-                transformComponent.Value = view.transform;
+                var clockView = gameObject.GetComponent<ClockView>();
+                transformComponent.Value = clockView.transform;
                 gameObject.transform.position = Vector3.zero;
                 
                 ref var clockViewComponentPool = ref _clockViewComponentPool.Add(entity);
-                clockViewComponentPool.HoursEuler = view.HoursTransform.transform;
-                clockViewComponentPool.MinutesEuler = view.MinutesTransform.transform;
-                clockViewComponentPool.SecondsEuler = view.SecondsTransform.transform;
-                clockViewComponentPool.TextTime = view.TextTime;
+                clockViewComponentPool.HoursEuler = clockView.HoursTransform.transform;
+                clockViewComponentPool.MinutesEuler = clockView.MinutesTransform.transform;
+                clockViewComponentPool.SecondsEuler = clockView.SecondsTransform.transform;
+                clockViewComponentPool.TextTime = clockView.TextTime;
+                clockViewComponentPool.CheckBoxSetTime = clockView.CheckBoxSetTime;
+
+                var world = systems.GetWorld();
+              var ne=  world.NewEntity();
+                var ddd = gameObject.GetComponentInChildren<HourView>();
+                ref var md = ref _mouseDirection.Add(ne);
+                md.LastPosition = ddd.BeginEvent;
+                md.Position = ddd.DrugEvent;
+                md.IsPositive = ddd.Direction;
                 
                 _prefabPool.Del(entity);
             }

@@ -18,6 +18,7 @@ namespace MSuhinin.Clock
 
             _filterClock = world.Filter<IsClockComponent>()
                 .Inc<ClockViewComponent>()
+                .Exc<IsHandSetTimeComponent>()
                 .End();
             _filterWorldTime = world.Filter<TimeComponent>().End();
 
@@ -37,6 +38,7 @@ namespace MSuhinin.Clock
                     var min = Mathf.Floor(timeComponentPool.MIN * GameConstants.MINUTES_TO_DEGREES);
                     var sec = Mathf.Floor(timeComponentPool.SEC * GameConstants.MINUTES_TO_DEGREES);
 
+               //  Debug.Log(hour);
                     clockView.HoursEuler.DORotateQuaternion(Quaternion.Euler(0, 0, -hour), GameConstants.TIC_DURATION);
                     clockView.MinutesEuler.DORotateQuaternion(Quaternion.Euler(0, 0, -min), 1);
                     clockView.SecondsEuler.DORotateQuaternion(Quaternion.Euler(0, 0, -sec), 1);
