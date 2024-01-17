@@ -20,7 +20,7 @@ namespace MSuhinin.Clock
             _filter = _world
                 .Filter<IsClockComponent>()
                 .Inc<ScriptableObjectComponent>()
-                .Exc<IsHandSetTimeComponent>()
+                .Exc<SetTimeFromClockHandComponent>()
                 .End();
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _isClockComponent = _world.GetPool<IsClockComponent>();

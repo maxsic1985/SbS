@@ -14,7 +14,7 @@ namespace MSuhinin.Clock
         private EcsFilter _filterChechBoxOn;
         private EcsFilter _filterChechBoxOff;
         private EcsFilter _timeFilter;
-        private EcsPool<IsHandSetTimeComponent> _isHandSetTimeComponent;
+        private EcsPool<SetTimeFromClockHandComponent> _isHandSetTimeComponent;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
         private EcsPool<TimeComponent> _timeComponentPool;
         private int _curHourAngle;
@@ -29,12 +29,12 @@ namespace MSuhinin.Clock
             var world = systems.GetWorld();
             _filterChechBoxOn = world
                 .Filter<ClockViewComponent>()
-                .Exc<IsHandSetTimeComponent>()
+                .Exc<SetTimeFromClockHandComponent>()
                 .End();
 
             _filterChechBoxOff = world
                 .Filter<ClockViewComponent>()
-                .Inc<IsHandSetTimeComponent>()
+                .Inc<SetTimeFromClockHandComponent>()
                 .End();
 
             _timeFilter = world
@@ -45,7 +45,7 @@ namespace MSuhinin.Clock
 
 
             _clockViewComponentPool = world.GetPool<ClockViewComponent>();
-            _isHandSetTimeComponent = world.GetPool<IsHandSetTimeComponent>();
+            _isHandSetTimeComponent = world.GetPool<SetTimeFromClockHandComponent>();
             _timeComponentPool = world.GetPool<TimeComponent>();
         }
 
@@ -84,16 +84,7 @@ namespace MSuhinin.Clock
                         SetMinutesValue(clockViewComponentPool, ref time);
 
                        
-                     var c  =new Regex(@"^(([0-1]?[0-9])|([2][0-3]))(:([0-5][0-9])){1,2}$").IsMatch(clockViewComponentPool.InputFieldTime.text);
-                        if (c)
-                        {
-                            //use stringBuilder
-                            time.HOUR = Int32.Parse(clockViewComponentPool.InputFieldTime.text[0].ToString()
-                            +Int32.Parse(clockViewComponentPool.InputFieldTime.text[1].ToString()));
-                            time.MIN = Int32.Parse(clockViewComponentPool.InputFieldTime.text[3].ToString()
-                                       + Int32.Parse(clockViewComponentPool.InputFieldTime.text[4].ToString()));
-                        }
-
+                   
                         //  clockViewComponentPool.TextTime.text = 12.ToString();
                         //  time.HOUR =Int32.Parse(clockViewComponentPool.TextTime.text,0);
                     }
