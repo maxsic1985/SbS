@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Leopotam.EcsLite;
 using UniRx;
-using UnityEditor.Timeline.Actions;
-using UnityEngine;
 
 
 namespace MSuhinin.Clock
