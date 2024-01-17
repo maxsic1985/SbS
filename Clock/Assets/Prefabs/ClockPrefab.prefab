@@ -204,8 +204,9 @@ MonoBehaviour:
   _minutesTransform: {fileID: 6978345347831275899}
   _hoursTransform: {fileID: 1333541325726309372}
   _secondsTransform: {fileID: 8440318827194361160}
-  _textTime: {fileID: 7386293467487269223}
-  _checkBoxSetTime: {fileID: 2707564537961596865}
+  _textTime: {fileID: 5424070271382413792}
+  _checkBoxSetTimeFromClockHand: {fileID: 2707564537961596865}
+  _checkBoxSetTimeFromTextInput: {fileID: 6504493522318381664}
 --- !u!1 &1268723703607812857
 GameObject:
   m_ObjectHideFlags: 0

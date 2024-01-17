@@ -19,6 +19,7 @@ namespace MSuhinin.Clock
             _filterClock = world.Filter<IsClockComponent>()
                 .Inc<ClockViewComponent>()
                 .Exc<SetTimeFromClockHandComponent>()
+                .Exc<SetTimeFromTextInputComponent>()
                 .End();
             _filterWorldTime = world.Filter<TimeComponent>().End();
 

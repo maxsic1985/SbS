@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace MSuhinin.Clock
 {
-    public sealed class ClockAnalogHandSetTimeSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class ClockSetTimeFromClockHandSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filterChechBoxOn;
         private EcsFilter _filterChechBoxOff;
@@ -54,8 +54,8 @@ namespace MSuhinin.Clock
             foreach (var entity in _filterChechBoxOn)
             {
                 ref var clockViewComponentPool = ref _clockViewComponentPool.Get(entity);
-                clockViewComponentPool.InputFieldTime.interactable = true;
-                if (clockViewComponentPool.CheckBoxSetTime.isOn)
+             
+                if (clockViewComponentPool.CheckBoxSetTimeFromClockHand.isOn)
                 {
                     ref var _setTimeComponent = ref _isHandSetTimeComponent.Add(entity);
 
@@ -73,20 +73,15 @@ namespace MSuhinin.Clock
             {
                 ref var clockViewComponentPool = ref _clockViewComponentPool.Get(entity);
 
-                if (!clockViewComponentPool.CheckBoxSetTime.isOn)
+                if (!clockViewComponentPool.CheckBoxSetTimeFromClockHand.isOn)
                 {
                     foreach (var timeEntity in _timeFilter)
                     {
                         ref var time = ref _timeComponentPool.Get(timeEntity);
 
-                        clockViewComponentPool.InputFieldTime.interactable = false;
+                       
                         SetHoursValue(clockViewComponentPool, ref time);
                         SetMinutesValue(clockViewComponentPool, ref time);
-
-                       
-                   
-                        //  clockViewComponentPool.TextTime.text = 12.ToString();
-                        //  time.HOUR =Int32.Parse(clockViewComponentPool.TextTime.text,0);
                     }
 
                     _isHandSetTimeComponent.Del(entity);

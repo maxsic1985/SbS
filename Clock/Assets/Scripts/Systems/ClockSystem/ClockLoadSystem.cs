@@ -21,6 +21,7 @@ namespace MSuhinin.Clock
                 .Filter<IsClockComponent>()
                 .Inc<ScriptableObjectComponent>()
                 .Exc<SetTimeFromClockHandComponent>()
+                .Exc<SetTimeFromTextInputComponent>()
                 .End();
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _isClockComponent = _world.GetPool<IsClockComponent>();
@@ -40,8 +41,6 @@ namespace MSuhinin.Clock
                     
                     ref ClockTypeComponent clockTypeComponent = ref _clockTypeComponent.Add(entity);
                     clockTypeComponent.ClockType = dataInit.ClockType;
-                    
-                   // ref var clockViewComponentPool = ref _clockViewComponentPool.Add(entity);
                 }
                 _scriptableObjectPool.Del(entity);
             }

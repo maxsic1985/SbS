@@ -13,7 +13,6 @@ namespace MSuhinin.Clock
         public Text TextTime;
         public Toggle CheckBoxSetTimeFromClockHand;
         public Toggle CheckBoxSetTimeFromTextInput;
-        public Toggle CheckBoxSetTime;
         public InputField InputFieldTime;
     
     }

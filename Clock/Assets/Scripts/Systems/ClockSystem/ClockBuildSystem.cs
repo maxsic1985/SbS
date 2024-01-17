@@ -42,7 +42,8 @@ namespace MSuhinin.Clock
                 clockViewComponentPool.MinutesEuler = clockView.MinutesTransform.transform;
                 clockViewComponentPool.SecondsEuler = clockView.SecondsTransform.transform;
                 clockViewComponentPool.TextTime = clockView.TextTime;
-                clockViewComponentPool.CheckBoxSetTime = clockView.CheckBoxSetTime;
+                clockViewComponentPool.CheckBoxSetTimeFromClockHand = clockView.CheckBoxSetTimeFromClockHand;
+                clockViewComponentPool.CheckBoxSetTimeFromTextInput = clockView.CheckBoxSetTimeFromTextInput;
 
              
                 var digitInput = gameObject.GetComponentInChildren<InputTextView>();

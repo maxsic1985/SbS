@@ -9,12 +9,12 @@ using UnityEngine.UI;
 
 namespace MSuhinin.Clock
 {
-    public sealed class ClockDigitalHandSetTimeSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class ClockHandSetTimeFromInputFielsSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filterChechBoxOn;
         private EcsFilter _filterChechBoxOff;
         private EcsFilter _timeFilter;
-        private EcsPool<SetTimeFromClockHandComponent> _isHandSetTimeComponent;
+        private EcsPool<SetTimeFromTextInputComponent> _isHandSetTimeComponent;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
         private EcsPool<TimeComponent> _timeComponentPool;
 
@@ -24,12 +24,12 @@ namespace MSuhinin.Clock
             var world = systems.GetWorld();
             _filterChechBoxOn = world
                 .Filter<ClockViewComponent>()
-                .Exc<SetTimeFromClockHandComponent>()
+                .Exc<SetTimeFromTextInputComponent>()
                 .End();
 
             _filterChechBoxOff = world
                 .Filter<ClockViewComponent>()
-                .Inc<SetTimeFromClockHandComponent>()
+                .Inc<SetTimeFromTextInputComponent>()
                 .End();
 
             _timeFilter = world
@@ -37,7 +37,7 @@ namespace MSuhinin.Clock
                 .End();
 
             _clockViewComponentPool = world.GetPool<ClockViewComponent>();
-            _isHandSetTimeComponent = world.GetPool<SetTimeFromClockHandComponent>();
+            _isHandSetTimeComponent = world.GetPool<SetTimeFromTextInputComponent>();
             _timeComponentPool = world.GetPool<TimeComponent>();
         }
 
@@ -46,7 +46,7 @@ namespace MSuhinin.Clock
             foreach (var entity in _filterChechBoxOn)
             {
                 ref var clockViewComponentPool = ref _clockViewComponentPool.Get(entity);
-                if (clockViewComponentPool.CheckBoxSetTime.isOn)
+                if (clockViewComponentPool.CheckBoxSetTimeFromTextInput.isOn)
                 {
                     clockViewComponentPool.InputFieldTime.interactable = true;
                     ref var _setTimeComponent = ref _isHandSetTimeComponent.Add(entity);
@@ -57,7 +57,7 @@ namespace MSuhinin.Clock
             {
                 ref var clockViewComponentPool = ref _clockViewComponentPool.Get(entity);
 
-                if (!clockViewComponentPool.CheckBoxSetTime.isOn)
+                if (!clockViewComponentPool.CheckBoxSetTimeFromTextInput.isOn)
                 {
                     foreach (var timeEntity in _timeFilter)
                     {
