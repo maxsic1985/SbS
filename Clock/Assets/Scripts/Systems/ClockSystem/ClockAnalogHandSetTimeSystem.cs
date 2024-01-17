@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace MSuhinin.Clock
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
         private EcsPool<TimeComponent> _timeComponentPool;
         private int _curHourAngle;
-        private int _hourAngle;  
+        private int _hourAngle;
         private int _curMinAngle;
         private int _minAngle;
         private Vector3 cur;
@@ -53,17 +54,18 @@ namespace MSuhinin.Clock
             foreach (var entity in _filterChechBoxOn)
             {
                 ref var clockViewComponentPool = ref _clockViewComponentPool.Get(entity);
-
+                clockViewComponentPool.InputFieldTime.interactable = true;
                 if (clockViewComponentPool.CheckBoxSetTime.isOn)
                 {
                     ref var _setTimeComponent = ref _isHandSetTimeComponent.Add(entity);
 
-                    _curHourAngle = Mathf.RoundToInt(clockViewComponentPool.HoursEuler.transform.rotation.eulerAngles.z);
+                    _curHourAngle =
+                        Mathf.RoundToInt(clockViewComponentPool.HoursEuler.transform.rotation.eulerAngles.z);
                     _hourAngle = _curHourAngle;
-                    
-                    _curMinAngle = Mathf.RoundToInt(clockViewComponentPool.MinutesEuler.transform.rotation.eulerAngles.z);
+
+                    _curMinAngle =
+                        Mathf.RoundToInt(clockViewComponentPool.MinutesEuler.transform.rotation.eulerAngles.z);
                     _minAngle = _curMinAngle;
-  
                 }
             }
 
@@ -77,10 +79,23 @@ namespace MSuhinin.Clock
                     {
                         ref var time = ref _timeComponentPool.Get(timeEntity);
 
+                        clockViewComponentPool.InputFieldTime.interactable = false;
                         SetHoursValue(clockViewComponentPool, ref time);
                         SetMinutesValue(clockViewComponentPool, ref time);
-                        clockViewComponentPool.TextTime.text = 12.ToString();
-                        time.HOUR =Int32.Parse(clockViewComponentPool.TextTime.text,0);
+
+                       
+                     var c  =new Regex(@"^(([0-1]?[0-9])|([2][0-3]))(:([0-5][0-9])){1,2}$").IsMatch(clockViewComponentPool.InputFieldTime.text);
+                        if (c)
+                        {
+                            //use stringBuilder
+                            time.HOUR = Int32.Parse(clockViewComponentPool.InputFieldTime.text[0].ToString()
+                            +Int32.Parse(clockViewComponentPool.InputFieldTime.text[1].ToString()));
+                            time.MIN = Int32.Parse(clockViewComponentPool.InputFieldTime.text[3].ToString()
+                                       + Int32.Parse(clockViewComponentPool.InputFieldTime.text[4].ToString()));
+                        }
+
+                        //  clockViewComponentPool.TextTime.text = 12.ToString();
+                        //  time.HOUR =Int32.Parse(clockViewComponentPool.TextTime.text,0);
                     }
 
                     _isHandSetTimeComponent.Del(entity);
@@ -96,7 +111,6 @@ namespace MSuhinin.Clock
             {
                 return;
             }
-
 
             if (_sharedData.GetMouseDirection)
             {
@@ -168,9 +182,9 @@ namespace MSuhinin.Clock
 
             if (_minAngle == _curMinAngle)
             {
-             //   return;
+                //   return;
             }
-            
+
             if (_sharedData.GetMouseDirection)
             {
                 var addmin = (_curMinAngle - _minAngle) / 6;
@@ -178,7 +192,7 @@ namespace MSuhinin.Clock
             }
             else
             {
-                var addmin = (_minAngle-_curMinAngle) / 6;
+                var addmin = (_minAngle - _curMinAngle) / 6;
                 time.MIN = time.MIN - addmin;
             }
 
@@ -186,7 +200,7 @@ namespace MSuhinin.Clock
             {
                 time.MIN = time.MIN > 59 ? time.MIN - 59 : time.MIN;
             }
-            
+
             if (time.MIN < 1)
             {
                 time.MIN = time.MIN < 1 ? time.MIN + 59 : time.MIN;

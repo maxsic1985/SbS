@@ -12,5 +12,7 @@ namespace MSuhinin.Clock
         public Transform SecondsEuler;
         public Text TextTime;
         public Toggle CheckBoxSetTime;
+        public InputField InputFieldTime;
+    
     }
 }

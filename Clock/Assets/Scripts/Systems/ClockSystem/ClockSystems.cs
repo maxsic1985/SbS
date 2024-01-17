@@ -11,7 +11,6 @@ namespace MSuhinin.Clock
                 .Add(new ClockLoadSystem())
                 .Add(new ClockBuildSystem())
                 .Add(new ClockAnimationTimeSystem())
-                .Add(new MouseDirectionSystem())
                 .Add(new ClockAnalogHandSetTimeSystem());
         }
     }

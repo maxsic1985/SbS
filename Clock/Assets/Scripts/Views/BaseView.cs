@@ -9,7 +9,7 @@ namespace MSuhinin.Clock
     {
         protected EcsWorld World;
         protected int Entity;
-        public Vector2 SSSS;
+      
 
         public virtual void Init(EcsWorld world, int entity)
         {
