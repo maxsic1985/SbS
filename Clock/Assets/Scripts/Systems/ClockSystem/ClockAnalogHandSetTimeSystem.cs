@@ -1,12 +1,14 @@
-﻿using Leopotam.EcsLite;
+﻿using System;
+using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine.UI;
 
 namespace MSuhinin.Clock
 {
-    public sealed class ClockHandSetTimeSystem : IEcsInitSystem, IEcsRunSystem
+    public sealed class ClockAnalogHandSetTimeSystem : IEcsInitSystem, IEcsRunSystem
     {
         private EcsFilter _filterChechBoxOn;
         private EcsFilter _filterChechBoxOff;
@@ -77,6 +79,8 @@ namespace MSuhinin.Clock
 
                         SetHoursValue(clockViewComponentPool, ref time);
                         SetMinutesValue(clockViewComponentPool, ref time);
+                        clockViewComponentPool.TextTime.text = 12.ToString();
+                        time.HOUR =Int32.Parse(clockViewComponentPool.TextTime.text,0);
                     }
 
                     _isHandSetTimeComponent.Del(entity);
