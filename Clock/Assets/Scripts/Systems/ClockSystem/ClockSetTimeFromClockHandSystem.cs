@@ -100,25 +100,25 @@ namespace MSuhinin.Clock
 
             if (_sharedData.GetMouseDirection)
             {
-                if (_curHourAngle < 180 && _hourAngle < 180)
+                if (_curHourAngle <= 180 && _hourAngle <= 180)
                 {
                     var addh = (_curHourAngle - _hourAngle) / 30;
                     time.HOUR = time.HOUR + addh;
                 }
-                else if (_curHourAngle < 180 && _hourAngle > 180)
+                else if (_curHourAngle <= 180 && _hourAngle >= 180)
                 {
                     var addh = ((360 - _hourAngle) + _curHourAngle) / 30;
                     time.HOUR = time.HOUR + addh;
                 }
-                else if (_curHourAngle > 180 && _hourAngle > 180)
+                else if (_curHourAngle > 180 && _hourAngle >= 180)
                 {
-                    if (_curHourAngle > _hourAngle)
+                    if (_curHourAngle >= _hourAngle)
                     {
                         var addh = (_curHourAngle - _hourAngle) / 30;
                         time.HOUR = time.HOUR + addh;
                     }
                 }
-                else if (_curHourAngle > 180 && _hourAngle < 180)
+                else if (_curHourAngle >= 180 && _hourAngle < 180)
                 {
                     var addh = (_curHourAngle - _hourAngle) / 30;
                     time.HOUR = time.HOUR + addh;
@@ -126,12 +126,12 @@ namespace MSuhinin.Clock
             }
             else
             {
-                if (_curHourAngle < 180 && _hourAngle < 180)
+                if (_curHourAngle <=180 && _hourAngle < 180)
                 {
                     var addh = (_hourAngle - _curHourAngle) / 30;
                     time.HOUR = time.HOUR - addh;
                 }
-                else if (_curHourAngle < 180 && _hourAngle > 180)
+                else if (_curHourAngle <= 180 && _hourAngle >= 180)
                 {
                     if (_curHourAngle < _hourAngle)
                     {
@@ -139,26 +139,26 @@ namespace MSuhinin.Clock
                         time.HOUR = time.HOUR - addh;
                     }
                 }
-                else if (_curHourAngle > 180 && _hourAngle > 180)
+                else if (_curHourAngle >= 180 && _hourAngle >= 180)
                 {
                     var addh = (_hourAngle - _curHourAngle) / 30;
                     time.HOUR = time.HOUR - addh;
                 }
-                else if (_curHourAngle > 180 && _hourAngle < 180)
+                else if (_curHourAngle >= 180 && _hourAngle <= 180)
                 {
                     var addh = ((360 - _curHourAngle) + _hourAngle) / 30;
                     time.HOUR = time.HOUR - addh;
                 }
             }
 
-            if (time.HOUR > 23)
+            if (time.HOUR >= 24)
             {
-                time.HOUR = time.HOUR > 23 ? time.HOUR - 23 : time.HOUR;
+                time.HOUR = time.HOUR >= 24 ? time.HOUR - 24 : time.HOUR;
             }
 
-            if (time.HOUR < 0)
+            if (time.HOUR <= 0)
             {
-                time.HOUR = time.HOUR < 0 ? time.HOUR + 23 : time.HOUR;
+                time.HOUR = time.HOUR < 0 ? time.HOUR + 24 : time.HOUR;
             }
         }
 
