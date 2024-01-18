@@ -18,18 +18,12 @@ namespace MSuhinin.Clock
 
         public DateTime GetCurrentDateTime()
         {
-            //here we don't need to get the datetime from the server again
-            // just add elapsed time since the game start to _currentDateTime
-
             return _currentDateTime.AddSeconds(Time.realtimeSinceStartup);
         }
 
         struct TimeData
         {
-            //public string client_ip;
-            //...
             public string datetime;
-            //..
         }
 
         private IEnumerator GetRealDateTimeFromAPI(string API_URL)
@@ -56,14 +50,13 @@ namespace MSuhinin.Clock
                 Debug.Log("Success.");
             }
         }
-
-        //datetime format => 2020-08-14T15:54:04+01:00
+        
         DateTime ParseDateTime(string datetime)
         {
-            //match 0000-00-00
+        
             string date = Regex.Match(datetime, @"^\d{4}-\d{2}-\d{2}").Value;
 
-            //match 00:00:00
+         
             string time = Regex.Match(datetime, @"\d{2}:\d{2}:\d{2}").Value;
 
             return DateTime.Parse(string.Format("{0} {1}", date, time));

@@ -9,6 +9,7 @@ namespace MSuhinin.Clock
         public const float HOURS_TO_DEGREES = 360 / 12;
         public const float MINUTES_TO_DEGREES = 360 / 60;
         public const float TIME_LAG = 5;
+        public const string TIME_PATTERN = "^(([0-1]?[0-9])|([2][0-3]))(:([0-5][0-9])){1,2}$";
 
 
         public const float STOP_THRESHOLD = 0.5f;

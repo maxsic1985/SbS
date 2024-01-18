@@ -4,6 +4,8 @@ using Leopotam.EcsLite;
 using Leopotam.EcsLite.Unity.Ugui;
 using UnityEngine;
 using DG.Tweening;
+using LeopotamGroup.Globals;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.UI;
 
@@ -17,6 +19,7 @@ namespace MSuhinin.Clock
         private EcsPool<SetTimeFromTextInputComponent> _isHandSetTimeComponent;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
         private EcsPool<TimeComponent> _timeComponentPool;
+        private  RegexService _regexService;
 
 
         public void Init(IEcsSystems systems)
@@ -39,6 +42,8 @@ namespace MSuhinin.Clock
             _clockViewComponentPool = world.GetPool<ClockViewComponent>();
             _isHandSetTimeComponent = world.GetPool<SetTimeFromTextInputComponent>();
             _timeComponentPool = world.GetPool<TimeComponent>();
+
+            _regexService = Service<RegexService>.Get();
         }
 
         public void Run(IEcsSystems systems)
@@ -61,18 +66,22 @@ namespace MSuhinin.Clock
                 {
                     foreach (var timeEntity in _timeFilter)
                     {
+                      var checkInputTime=  _regexService.CheckRegex(GameConstants.TIME_PATTERN
+                            , clockViewComponentPool.InputFieldTime.text);
                         ref var time = ref _timeComponentPool.Get(timeEntity);
-                        var c = new Regex(@"^(([0-1]?[0-9])|([2][0-3]))(:([0-5][0-9])){1,2}$").IsMatch(
-                            clockViewComponentPool.InputFieldTime.text);
-                        if (c)
+                     
+                        if (checkInputTime)
                         {
-                            //use stringBuilder
                             time.HOUR = Int32.Parse(clockViewComponentPool.InputFieldTime.text[0].ToString()
                                                     + Int32.Parse(clockViewComponentPool.InputFieldTime.text[1]
                                                         .ToString()));
                             time.MIN = Int32.Parse(clockViewComponentPool.InputFieldTime.text[3].ToString()
                                                    + Int32.Parse(clockViewComponentPool.InputFieldTime.text[4]
                                                        .ToString()));
+                        }
+                        else
+                        {
+                            Debug.Log($"Введен неверный формат времени");
                         }
                     }
 
