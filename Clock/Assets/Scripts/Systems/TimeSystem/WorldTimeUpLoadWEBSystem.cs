@@ -37,7 +37,7 @@ namespace MSuhinin.Clock
             foreach (int entity in _filter)
             {
                 ref var worldTimeComponentPool = ref _worldTimeComponentPool.Get(entity);
-                worldTimeComponentPool.DateTime = _worldTimeService.GetCurrentDateTime();
+                worldTimeComponentPool.DateTime = _worldTimeService.UpdateTimeFromWeb();
 
 
                 ref var time = ref _timeComponentPool.Get(entity);

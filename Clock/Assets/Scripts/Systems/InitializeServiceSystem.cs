@@ -14,7 +14,6 @@ namespace MSuhinin.Clock
 
         public void Init(IEcsSystems systems)
         {
-            Service<ITimeService>.Set(new UnityTimeService());
             Service<IWorldTimeService>.Set(new NtpTimeService());
             Service<GameObjectAssetLoader>.Set(new GameObjectAssetLoader());
             Service<ScriptableObjectAssetLoader>.Set(new ScriptableObjectAssetLoader());

@@ -13,7 +13,7 @@ namespace MSuhinin.Clock
             GetCurrentDateTimeFromNTP(ntpServer);
         }
         
-        public DateTime GetCurrentDateTime()
+        public DateTime UpdateTimeFromWeb()
         {
             //here we don't need to get the datetime from the server again
             // just add elapsed time since the game start to _currentDateTime

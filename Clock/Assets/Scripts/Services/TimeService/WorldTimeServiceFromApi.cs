@@ -16,7 +16,7 @@ namespace MSuhinin.Clock
             IEnumerator result = GetRealDateTimeFromAPI( API_URL);
         }
 
-        public DateTime GetCurrentDateTime()
+        public DateTime UpdateTimeFromWeb()
         {
             return _currentDateTime.AddSeconds(Time.realtimeSinceStartup);
         }
