@@ -48,7 +48,7 @@ namespace MSuhinin.Clock
             foreach (var entity in _filterChechBoxOn)
             {
                 ref var clockViewComponentPool = ref _clockViewComponentPool.Get(entity);
-             
+
                 if (clockViewComponentPool.CheckBoxSetTimeFromClockHand.isOn)
                 {
                     ref var _setTimeComponent = ref _isHandSetTimeComponent.Add(entity);
@@ -73,7 +73,7 @@ namespace MSuhinin.Clock
                     {
                         ref var time = ref _timeComponentPool.Get(timeEntity);
 
-                       
+
                         SetHoursValue(clockViewComponentPool, ref time);
                         SetMinutesValue(clockViewComponentPool, ref time);
                     }
@@ -92,93 +92,97 @@ namespace MSuhinin.Clock
                 return;
             }
 
-            if (_inputSharedData.GetMouseDirection)
+            if (_inputSharedData.ISForwardMouseDirection)
             {
-                if (_curHourAngle <= 180 && _hourAngle <= 180)
+                if (_curHourAngle <= GameConstants.HALF_ROUND && _hourAngle <= GameConstants.HALF_ROUND)
                 {
-                    var addh = (_curHourAngle - _hourAngle) / 30;
+                    var addh = (_curHourAngle - _hourAngle) / GameConstants.HOURS_TO_DEGREES;
                     time.HOUR = time.HOUR + addh;
                 }
-                else if (_curHourAngle <= 180 && _hourAngle >= 180)
+                else if (_curHourAngle <= GameConstants.HALF_ROUND && _hourAngle >= GameConstants.HALF_ROUND)
                 {
-                    var addh = ((360 - _hourAngle) + _curHourAngle) / 30;
+                    var addh = ((GameConstants.ROUND - _hourAngle) + _curHourAngle) / GameConstants.HOURS_TO_DEGREES;
                     time.HOUR = time.HOUR + addh;
                 }
-                else if (_curHourAngle > 180 && _hourAngle >= 180)
+                else if (_curHourAngle > GameConstants.HALF_ROUND && _hourAngle >= GameConstants.HALF_ROUND)
                 {
                     if (_curHourAngle >= _hourAngle)
                     {
-                        var addh = (_curHourAngle - _hourAngle) / 30;
+                        var addh = (_curHourAngle - _hourAngle) / GameConstants.HOURS_TO_DEGREES;
                         time.HOUR = time.HOUR + addh;
                     }
                 }
-                else if (_curHourAngle >= 180 && _hourAngle < 180)
+                else if (_curHourAngle >= GameConstants.HALF_ROUND && _hourAngle < GameConstants.HALF_ROUND)
                 {
-                    var addh = (_curHourAngle - _hourAngle) / 30;
+                    var addh = (_curHourAngle - _hourAngle) / GameConstants.HOURS_TO_DEGREES;
                     time.HOUR = time.HOUR + addh;
                 }
             }
             else
             {
-                if (_curHourAngle <=180 && _hourAngle < 180)
+                if (_curHourAngle <= GameConstants.HALF_ROUND && _hourAngle < GameConstants.HALF_ROUND)
                 {
-                    var addh = (_hourAngle - _curHourAngle) / 30;
+                    var addh = (_hourAngle - _curHourAngle) / GameConstants.HOURS_TO_DEGREES;
                     time.HOUR = time.HOUR - addh;
                 }
-                else if (_curHourAngle <= 180 && _hourAngle >= 180)
+                else if (_curHourAngle <= GameConstants.HALF_ROUND && _hourAngle >= GameConstants.HALF_ROUND)
                 {
                     if (_curHourAngle < _hourAngle)
                     {
-                        var addh = (_hourAngle - _curHourAngle) / 30;
+                        var addh = (_hourAngle - _curHourAngle) / GameConstants.HOURS_TO_DEGREES;
                         time.HOUR = time.HOUR - addh;
                     }
                 }
-                else if (_curHourAngle >= 180 && _hourAngle >= 180)
+                else if (_curHourAngle >= GameConstants.HALF_ROUND && _hourAngle >= GameConstants.HALF_ROUND)
                 {
-                    var addh = (_hourAngle - _curHourAngle) / 30;
+                    var addh = (_hourAngle - _curHourAngle) / GameConstants.HOURS_TO_DEGREES;
                     time.HOUR = time.HOUR - addh;
                 }
-                else if (_curHourAngle >= 180 && _hourAngle <= 180)
+                else if (_curHourAngle >= GameConstants.HALF_ROUND && _hourAngle <= GameConstants.HALF_ROUND)
                 {
-                    var addh = ((360 - _curHourAngle) + _hourAngle) / 30;
+                    var addh = ((GameConstants.ROUND - _curHourAngle) + _hourAngle) / GameConstants.HOURS_TO_DEGREES;
                     time.HOUR = time.HOUR - addh;
                 }
             }
 
-            if (time.HOUR >= 24)
+            if (time.HOUR >= GameConstants.HOUR_DURATION)
             {
-                time.HOUR = time.HOUR >= 24 ? time.HOUR - 24 : time.HOUR;
+                time.HOUR = time.HOUR >= GameConstants.HOUR_DURATION
+                    ? time.HOUR - GameConstants.HOUR_DURATION
+                    : time.HOUR;
             }
 
             if (time.HOUR <= 0)
             {
-                time.HOUR = time.HOUR < 0 ? time.HOUR + 24 : time.HOUR;
+                time.HOUR = time.HOUR < 0 ? time.HOUR + GameConstants.HOUR_DURATION : time.HOUR;
             }
         }
 
         private void SetMinutesValue(ClockViewComponent clockViewComponentPool, ref TimeComponent time)
         {
             _minAngle = Mathf.RoundToInt(clockViewComponentPool.MinutesEuler.localRotation.eulerAngles.z);
-            
-            if (_inputSharedData.GetMouseDirection)
+
+            if (_inputSharedData.ISForwardMouseDirection)
             {
-                var addmin = (_curMinAngle - _minAngle) / 6;
+                var addmin = (_curMinAngle - _minAngle) / GameConstants.MINUTES_TO_DEGREES;
                 time.MIN = time.MIN + addmin;
             }
             else
             {
-                var addmin = (_minAngle - _curMinAngle) / 6;
+                var addmin = (_minAngle - _curMinAngle) / GameConstants.MINUTES_TO_DEGREES;
                 time.MIN = time.MIN - addmin;
             }
 
-            if (time.MIN > 59)
+            if (time.MIN >= GameConstants.HOUR_DURATION_MIN)
             {
-                time.MIN = time.MIN > 59 ? time.MIN - 59 : time.MIN;
+                time.MIN = time.MIN >= GameConstants.HOUR_DURATION_MIN
+                    ? time.MIN - GameConstants.HOUR_DURATION_MIN
+                    : time.MIN;
             }
 
-            if (time.MIN < 1)
+            if (time.MIN < 0)
             {
-                time.MIN = time.MIN < 1 ? time.MIN + 59 : time.MIN;
+                time.MIN = time.MIN <0 ? time.MIN + GameConstants.HOUR_DURATION_MIN : time.MIN;
             }
         }
     }

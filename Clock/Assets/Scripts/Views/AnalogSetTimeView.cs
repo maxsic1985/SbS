@@ -34,7 +34,7 @@ public sealed class AnalogSetTimeView : BaseView, IDragHandler, IBeginDragHandle
             transform.rotation.y,
             -differencePoint.x);
 
-        inputSharedData.GetMouseDirection = (_lastPosition - eventData.position).normalized.x < 0 ? true : false;
+        inputSharedData.ISForwardMouseDirection = (_lastPosition - eventData.position).normalized.x < 0 ? true : false;
     }
 
 

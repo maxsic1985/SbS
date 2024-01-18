@@ -51,7 +51,7 @@ namespace MSuhinin.Clock
             {
                 time.MIN = 0;
                 time.SEC = 0;
-                var tcHour = time.HOUR == GameConstants.HOUR_DURATIO ? time.HOUR = 0 : time.HOUR++;
+                var tcHour = time.HOUR == GameConstants.HOUR_DURATION ? time.HOUR = 0 : time.HOUR++;
                 
                 ref var n = ref _isNewHourComponentPool.Add(entity);
             }

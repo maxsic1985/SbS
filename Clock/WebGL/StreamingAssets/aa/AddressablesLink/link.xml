@@ -4,7 +4,7 @@
     <type fullname="ClockView" preserve="all" />
     <type fullname="InputTextView" preserve="all" />
     <type fullname="MSuhinin.Clock.ClockBuildData" preserve="all" />
-    <type fullname="MSuhinin.Clock.GameSharedData" preserve="all" />
+    <type fullname="MSuhinin.Clock.GameInputSharedData" preserve="all" />
   </assembly>
   <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />

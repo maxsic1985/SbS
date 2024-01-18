@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace MSuhinin.Clock
@@ -12,7 +10,7 @@ namespace MSuhinin.Clock
         
        [SerializeField] private bool mouseDirection;
        
-        public bool GetMouseDirection
+        public bool ISForwardMouseDirection
         {
             get
             {
