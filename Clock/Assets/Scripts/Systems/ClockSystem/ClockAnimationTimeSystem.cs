@@ -2,6 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 
+
 namespace MSuhinin.Clock
 {
     public sealed class ClockAnimationTimeSystem : IEcsInitSystem, IEcsRunSystem

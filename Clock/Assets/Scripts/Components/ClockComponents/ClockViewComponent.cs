@@ -1,6 +1,4 @@
-﻿using System;
-using System.Numerics;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace MSuhinin.Clock

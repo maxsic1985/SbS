@@ -1,6 +1,6 @@
-﻿using System;
-using Leopotam.EcsLite;
-using UnityEngine;
+﻿using Leopotam.EcsLite;
+
+
 
 namespace MSuhinin.Clock
 {
@@ -9,9 +9,9 @@ namespace MSuhinin.Clock
         private EcsFilter _filter;
         private EcsWorld _world;
         private EcsPool<IsNewHourComponent> _isNewHourComponentPool;
-        private EcsPool<IsNeсesaryUpdateTimeFromNet> _isNessesaryUpdateTimeFromNetComponentPool;
+        private EcsPool<IsGetUpdateTimeFromNet> _isNessesaryUpdateTimeFromNetComponentPool;
         private EcsPool<TimeComponent> _timeComponentPool;
-        private EcsPool<WorldTimeComponent> _worldTimeComponentPool;
+        private EcsPool<DateTimeComponent> _worldTimeComponentPool;
 
         public void Init(IEcsSystems systems)
         {
@@ -19,15 +19,15 @@ namespace MSuhinin.Clock
 
             _filter = _world
                 .Filter<IsWorldTimeComponent>()
-                .Inc<WorldTimeComponent>()
+                .Inc<DateTimeComponent>()
                 .Inc<IsNewHourComponent>()
                 .Inc<TimeComponent>()
                 .End();
 
-            _worldTimeComponentPool = _world.GetPool<WorldTimeComponent>();
+            _worldTimeComponentPool = _world.GetPool<DateTimeComponent>();
             _timeComponentPool = _world.GetPool<TimeComponent>();
             _isNewHourComponentPool = _world.GetPool<IsNewHourComponent>();
-            _isNessesaryUpdateTimeFromNetComponentPool = _world.GetPool<IsNeсesaryUpdateTimeFromNet>();
+            _isNessesaryUpdateTimeFromNetComponentPool = _world.GetPool<IsGetUpdateTimeFromNet>();
         }
 
         public void Run(IEcsSystems systems)

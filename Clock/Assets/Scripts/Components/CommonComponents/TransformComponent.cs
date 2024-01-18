@@ -1,7 +1,6 @@
 using UnityEngine;
 
 
-
 namespace MSuhinin.Clock
 {
     public struct TransformComponent

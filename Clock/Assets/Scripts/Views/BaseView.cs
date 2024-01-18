@@ -2,7 +2,6 @@ using Leopotam.EcsLite;
 using UnityEngine;
 
 
-
 namespace MSuhinin.Clock
 {
     public abstract class BaseView : MonoBehaviour

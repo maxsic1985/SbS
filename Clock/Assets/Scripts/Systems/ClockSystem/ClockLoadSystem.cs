@@ -10,7 +10,6 @@ namespace MSuhinin.Clock
         private EcsFilter _filter;
         private EcsWorld _world;
         private EcsPool<IsClockComponent> _isClockComponent;
-        private EcsPool<ClockTypeComponent> _clockTypeComponent;
         private EcsPool<ScriptableObjectComponent> _scriptableObjectPool;
         private EcsPool<LoadPrefabComponent> _loadPrefabPool;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
@@ -25,7 +24,6 @@ namespace MSuhinin.Clock
                 .End();
             _loadPrefabPool = _world.GetPool<LoadPrefabComponent>();
             _isClockComponent = _world.GetPool<IsClockComponent>();
-            _clockTypeComponent = _world.GetPool<ClockTypeComponent>();
             _clockViewComponentPool = _world.GetPool<ClockViewComponent>();
             _scriptableObjectPool = _world.GetPool<ScriptableObjectComponent>();
         }
@@ -38,9 +36,6 @@ namespace MSuhinin.Clock
                 {
                     ref LoadPrefabComponent loadPrefabFromPool = ref _loadPrefabPool.Add(entity);
                     loadPrefabFromPool.Value = dataInit.ClockPrefab;
-                    
-                    ref ClockTypeComponent clockTypeComponent = ref _clockTypeComponent.Add(entity);
-                    clockTypeComponent.ClockType = dataInit.ClockType;
                 }
                 _scriptableObjectPool.Del(entity);
             }

@@ -1,5 +1,6 @@
 ﻿using Leopotam.EcsLite;
 
+
 namespace MSuhinin.Clock
 {
     public sealed class ClockSystems
@@ -12,7 +13,7 @@ namespace MSuhinin.Clock
                 .Add(new ClockBuildSystem())
                 .Add(new ClockAnimationTimeSystem())
                 .Add(new ClockSetTimeFromClockHandSystem())
-                .Add(new ClockHandSetTimeFromInputFielsSystem());
+                .Add(new ClockSetTimeFromInputFielsSystem());
         }
     }
 }

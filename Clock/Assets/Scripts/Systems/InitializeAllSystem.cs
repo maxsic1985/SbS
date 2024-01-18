@@ -8,8 +8,8 @@ namespace MSuhinin.Clock
         {
             new ServicesSystems(systems);
             new LoadResoursesSystems(systems);
-            new CommonSystems(systems);
-            new GameRuntimeSystems(systems);
+            new WebTimeSystems(systems);
+            new ClockSystems(systems);
         }
     }
 }

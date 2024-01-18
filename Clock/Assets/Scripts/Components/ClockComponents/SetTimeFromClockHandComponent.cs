@@ -1,6 +1,4 @@
-﻿using Unity.VisualScripting;
-
-namespace MSuhinin.Clock
+﻿namespace MSuhinin.Clock
 {
     public struct SetTimeFromClockHandComponent
     {

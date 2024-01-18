@@ -1,6 +1,6 @@
 ﻿namespace MSuhinin.Clock
 {
-    public struct IsNeсesaryUpdateTimeFromNet
+    public struct IsGetUpdateTimeFromNet
     {
         
     }

@@ -1,23 +1,18 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using MSuhinin.Clock;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
-public sealed class AnalogSetTimeView : BaseView, IDragHandler,IBeginDragHandler
+
+public sealed class AnalogSetTimeView : BaseView, IDragHandler, IBeginDragHandler
 {
-   
-    [FormerlySerializedAs("_sharedData")] [SerializeField]  private GameInputSharedData inputSharedData;
-    private bool _direction;
+    [SerializeField] private GameInputSharedData inputSharedData;
+
     private Vector2 mousePosition = new Vector2();
     private Vector2 startPosition = new Vector2();
     private Vector2 differencePoint = new Vector2();
     private Vector2 _lastPosition = new Vector2();
 
- 
+
     void Update()
     {
         if (Input.GetMouseButton(0))
@@ -25,6 +20,7 @@ public sealed class AnalogSetTimeView : BaseView, IDragHandler,IBeginDragHandler
             UpdateMousePosition();
             UpdateDifferencePoint();
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             UpdateStartPosition();
@@ -35,15 +31,15 @@ public sealed class AnalogSetTimeView : BaseView, IDragHandler,IBeginDragHandler
     {
         transform.rotation = Quaternion.Euler(
             transform.rotation.x,
-            transform.rotation.y, -differencePoint.x);
-        
-     inputSharedData.GetMouseDirection=(_lastPosition - eventData.position).normalized.x < 0 ? true : false;
- 
+            transform.rotation.y,
+            -differencePoint.x);
+
+        inputSharedData.GetMouseDirection = (_lastPosition - eventData.position).normalized.x < 0 ? true : false;
     }
-    
+
 
     public void OnBeginDrag(PointerEventData eventData)
-    {  
+    {
         _lastPosition = eventData.position;
     }
 

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Leopotam.EcsLite;
-using Leopotam.EcsLite.Unity.Ugui;
+﻿using Leopotam.EcsLite;
 using UnityEngine;
-using DG.Tweening;
-using Unity.VisualScripting;
-using UnityEngine.UI;
+
 
 namespace MSuhinin.Clock
 {
@@ -21,7 +16,6 @@ namespace MSuhinin.Clock
         private int _hourAngle;
         private int _curMinAngle;
         private int _minAngle;
-        private Vector3 cur;
         private GameInputSharedData _inputSharedData;
 
         public void Init(IEcsSystems systems)
@@ -165,12 +159,7 @@ namespace MSuhinin.Clock
         private void SetMinutesValue(ClockViewComponent clockViewComponentPool, ref TimeComponent time)
         {
             _minAngle = Mathf.RoundToInt(clockViewComponentPool.MinutesEuler.localRotation.eulerAngles.z);
-
-            if (_minAngle == _curMinAngle)
-            {
-                //   return;
-            }
-
+            
             if (_inputSharedData.GetMouseDirection)
             {
                 var addmin = (_curMinAngle - _minAngle) / 6;
