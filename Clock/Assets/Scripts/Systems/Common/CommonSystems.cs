@@ -8,7 +8,6 @@ namespace MSuhinin.Clock
     {
         public CommonSystems(EcsSystems systems)
         {
-            systems.Add(new TransformMovingSystem());
             systems.Add(new SynchronizeTransformAndPositionSystem());
             systems.Add(new TimerRunSystem());
         }

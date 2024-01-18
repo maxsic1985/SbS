@@ -22,7 +22,7 @@ namespace MSuhinin.Clock
         private int _curMinAngle;
         private int _minAngle;
         private Vector3 cur;
-        private GameSharedData _sharedData;
+        private GameInputSharedData _inputSharedData;
 
         public void Init(IEcsSystems systems)
         {
@@ -41,7 +41,7 @@ namespace MSuhinin.Clock
                 .Filter<TimeComponent>()
                 .End();
 
-            _sharedData = systems.GetShared<SharedData>().GetSharedData;
+            _inputSharedData = systems.GetShared<SharedData>().GetInputSharedData;
 
 
             _clockViewComponentPool = world.GetPool<ClockViewComponent>();
@@ -98,7 +98,7 @@ namespace MSuhinin.Clock
                 return;
             }
 
-            if (_sharedData.GetMouseDirection)
+            if (_inputSharedData.GetMouseDirection)
             {
                 if (_curHourAngle <= 180 && _hourAngle <= 180)
                 {
@@ -171,7 +171,7 @@ namespace MSuhinin.Clock
                 //   return;
             }
 
-            if (_sharedData.GetMouseDirection)
+            if (_inputSharedData.GetMouseDirection)
             {
                 var addmin = (_curMinAngle - _minAngle) / 6;
                 time.MIN = time.MIN + addmin;

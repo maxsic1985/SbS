@@ -13,7 +13,7 @@ namespace MSuhinin.Clock
         private EcsPool<SetTimeFromTextInputComponent> _isHandSetTimeComponent;
         private EcsPool<ClockViewComponent> _clockViewComponentPool;
         private EcsPool<TimeComponent> _timeComponentPool;
-        private  RegexService _regexService;
+        private RegexService _regexService;
 
 
         public void Init(IEcsSystems systems)
@@ -60,24 +60,20 @@ namespace MSuhinin.Clock
                 {
                     foreach (var timeEntity in _timeFilter)
                     {
-                      var checkInputTime=  _regexService.CheckRegex(GameConstants.TIME_PATTERN
+                        var checkInputTime = _regexService.CheckRegex(GameConstants.TIME_PATTERN
                             , clockViewComponentPool.InputFieldTime.text);
                         ref var time = ref _timeComponentPool.Get(timeEntity);
-                     
-                        if (checkInputTime)
+
+                        var inputText = clockViewComponentPool.InputFieldTime.text;
+                        if (checkInputTime && inputText.Length == 5)
                         {
-                            time.HOUR = Int32.Parse(clockViewComponentPool.InputFieldTime.text[0].ToString()
-                                                    + Int32.Parse(clockViewComponentPool.InputFieldTime.text[1]
-                                                        .ToString()));
-                            time.MIN = Int32.Parse(clockViewComponentPool.InputFieldTime.text[3].ToString()
-                                                   + Int32.Parse(clockViewComponentPool.InputFieldTime.text[4]
-                                                       .ToString()));
+                            time.HOUR = Int32.Parse(inputText[0].ToString() + Int32.Parse(inputText[1].ToString()));
+                            time.MIN = Int32.Parse(inputText[3].ToString() + Int32.Parse(inputText[4].ToString()));
                         }
                         else
                         {
                             Debug.Log($"Введен неверный формат времени");
                             clockViewComponentPool.InputFieldTime.text = "00:00";
-
                         }
                     }
 

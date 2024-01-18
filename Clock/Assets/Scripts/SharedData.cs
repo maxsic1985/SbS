@@ -9,16 +9,16 @@ namespace  MSuhinin.Clock
 {
     public sealed class SharedData
     {
-        private GameSharedData _playerShared;
-        public GameSharedData GetSharedData => _playerShared;
+        private GameInputSharedData _playerInputShared;
+        public GameInputSharedData GetInputSharedData => _playerInputShared;
 
         public async Task Init()
         {
-            AsyncOperationHandle<GameSharedData> handlePlayer =
-                Addressables.LoadAssetAsync<GameSharedData>(AssetsNamesConstants.GAME_SHARED_DATA);
+            AsyncOperationHandle<GameInputSharedData> handlePlayer =
+                Addressables.LoadAssetAsync<GameInputSharedData>(AssetsNamesConstants.GAME_SHARED_DATA);
             await handlePlayer.Task;
             
-            _playerShared = handlePlayer.Result;
+            _playerInputShared = handlePlayer.Result;
 
         }
     }

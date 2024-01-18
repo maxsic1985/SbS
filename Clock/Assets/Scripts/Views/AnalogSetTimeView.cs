@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using MSuhinin.Clock;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public sealed class AnalogSetTimeView : BaseView, IDragHandler,IBeginDragHandler
 {
    
-    [SerializeField]  private GameSharedData _sharedData;
+    [FormerlySerializedAs("_sharedData")] [SerializeField]  private GameInputSharedData inputSharedData;
     private bool _direction;
     private Vector2 mousePosition = new Vector2();
     private Vector2 startPosition = new Vector2();
@@ -36,7 +37,7 @@ public sealed class AnalogSetTimeView : BaseView, IDragHandler,IBeginDragHandler
             transform.rotation.x,
             transform.rotation.y, -differencePoint.x);
         
-     _sharedData.GetMouseDirection=(_lastPosition - eventData.position).normalized.x < 0 ? true : false;
+     inputSharedData.GetMouseDirection=(_lastPosition - eventData.position).normalized.x < 0 ? true : false;
  
     }
     
