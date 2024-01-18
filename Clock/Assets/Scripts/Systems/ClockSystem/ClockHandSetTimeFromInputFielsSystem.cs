@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 using Leopotam.EcsLite;
-using Leopotam.EcsLite.Unity.Ugui;
 using UnityEngine;
-using DG.Tweening;
 using LeopotamGroup.Globals;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEngine.UI;
 
 namespace MSuhinin.Clock
 {
@@ -82,6 +76,8 @@ namespace MSuhinin.Clock
                         else
                         {
                             Debug.Log($"Введен неверный формат времени");
+                            clockViewComponentPool.InputFieldTime.text = "00:00";
+
                         }
                     }
 
